@@ -1,9 +1,6 @@
 package inboud;
 
-import filter.HeaderHttpRequestFilter;
-import filter.HeaderHttpResponseFilter;
-import filter.HttpRequestFilter;
-import filter.HttpResponseFilter;
+import filter.*;
 import outbound.netty4.HttpOutboundClient;
 import router.HttpEndpointRouter;
 import router.RandomHttpEndpointRouter;
@@ -20,6 +17,7 @@ public class HttpInboundHandler extends ChannelInboundHandlerAdapter {
     private HttpResponseFilter responseFilter = new HeaderHttpResponseFilter();
     private HttpEndpointRouter router = new RandomHttpEndpointRouter();
     private HttpOutboundClient handler = new HttpOutboundClient();
+    private UriHttpRequestFilter uriFilter = new UriHttpRequestFilter();
 
     public HttpInboundHandler(List<String> proxyServer) {
         this.proxyServer = proxyServer;
@@ -53,13 +51,14 @@ public class HttpInboundHandler extends ChannelInboundHandlerAdapter {
             // 请求过滤器
             requestFilter.filter(fullHttpRequest, ctx);
 
+            // 重写uri
+            uriFilter.filter(fullHttpRequest, ctx);
+
             // 路由
             String backendServer = router.route(this.proxyServer);
             String url = backendServer + fullHttpRequest.uri();
 
-            // 重写uri
-            fullHttpRequest.setUri("/test/test");
-
+            // 请求backend
             response = handler.run(url, fullHttpRequest);
 
             if (response == null) {
