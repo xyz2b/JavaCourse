@@ -3,24 +3,24 @@ package Thread;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.FutureTask;
+import java.util.concurrent.Future;
 
-public class ThreadPool1 {
-    public static void main(String[] args) {
-        ExecutorService pool = Executors.newFixedThreadPool(6);
-
-        FutureTask<Integer> task = new FutureTask<>((Callable<Integer>) () -> {
+public class CachedThreadPool {
+    public static void main(String[] args) throws Exception {
+        Callable<Integer> task = () -> {
             return sum();
-        });
+        };
 
-        pool.submit(task);
+        ExecutorService executorService = Executors.newCachedThreadPool();
+
+        Future<Integer> future = executorService.submit(task);
 
         try {
-            System.out.println("异步计算结果为：" + task.get());
+            System.out.println("异步计算结果为：" + future.get());
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
-            pool.shutdown();
+            executorService.shutdown();
         }
     }
 

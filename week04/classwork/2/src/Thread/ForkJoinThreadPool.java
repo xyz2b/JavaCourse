@@ -5,11 +5,10 @@ import java.util.concurrent.Future;
 import java.util.concurrent.RecursiveTask;
 
 
-public class ThreadPool2 {
+public class ForkJoinThreadPool {
     public static void main(String[] args) {
-        ForkJoinPool pool = ForkJoinPool.commonPool();
+        java.util.concurrent.ForkJoinPool pool = java.util.concurrent.ForkJoinPool.commonPool();
 
-        // Future的实现或者Future子类的实现都可以直接丢给线程执行，并可以通过future.get获取返回值
         Future<Integer> future = pool.submit(new CalTask());
 
         try {
