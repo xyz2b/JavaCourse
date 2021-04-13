@@ -1,22 +1,12 @@
 package Thread;
 
-public class WaitNotify {
-    private static final Object signal = new Object();
-
+public class Sleep {
     static class Task implements Runnable {
         public int sum;
-        private final Object signal;
-
-        public Task(Object signal) {
-            this.signal = signal;
-        }
 
         @Override
         public void run() {
             this.sum = sum();
-            synchronized (signal) {
-                signal.notify();
-            }
         }
 
         private int sum() {
@@ -31,13 +21,13 @@ public class WaitNotify {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        Task task = new Task(signal);
+        Task task = new Task();
+        new Thread(task).start();
 
-        new Thread(task, "task").start();
-        synchronized (signal) {
-            signal.wait();
-        }
+        Thread.sleep(1000);
 
         System.out.println("异步计算结果为：" + task.sum);
     }
+
+
 }
