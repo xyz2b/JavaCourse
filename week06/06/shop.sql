@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
 	PRIMARY KEY (`user_id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '用户表';
 
-CREATE TABLE customer_addr(
+CREATE TABLE IF NOT EXISTS `address` (
 	`customer_addr_id`		 INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT '自增主键ID',
 	`customer_id`			 INT UNSIGNED NOT NULL COMMENT 'customer_login表的自增ID',
   	`zip`					 SMALLINT NOT NULL COMMENT '邮编',
@@ -23,7 +23,7 @@ CREATE TABLE customer_addr(
   PRIMARY KEY pk_customeraddid(customer_addr_id)
 )ENGINE=innodb DEFAULT CHARSET=utf8 COMMENT '用户地址表';
 
-CREATE TABLE IF NOT EXISTS `user` (
+CREATE TABLE IF NOT EXISTS `product` (
 	`product_id`			INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT '商品ID',
 	`product_name`			VARCHAR(100) NOT NULL COMMENT '商品名称',
 	`product_price`			INT UNSIGNED NOT NULL COMMENT '商品价格',
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 	`update_date`			TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间',
 	`is_delete`				TINYINT NOT NULL COMMENT '是否删除',
 	PRIMARY KEY (`commodity_id`)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '订单主表';
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '商品表';
 
 
 CREATE TABLE IF NOT EXISTS `order` (
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `order` (
 	`update_date`			TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP '最后更新时间',
 	`is_delete`				TINYINT NOT NULL COMMENT '是否删除',
 	PRIMARY KEY (`order_id`)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '订单主表';
 
 CREATE TABLE IF NOT EXISTS `order_detail` (
 	`order_detail_id` 		INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '订单详情ID',
