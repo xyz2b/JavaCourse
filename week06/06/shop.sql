@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
 CREATE TABLE IF NOT EXISTS `address` (
 	`customer_addr_id`		 INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT '自增主键ID',
 	`customer_id`			 INT UNSIGNED NOT NULL COMMENT 'customer_login表的自增ID',
-  	`zip`					 SMALLINT NOT NULL COMMENT '邮编',
+  `zip`					 SMALLINT NOT NULL COMMENT '邮编',
 	`province`				 VARCHAR(20) NOT NULL COMMENT '省份',
 	`city`					 VARCHAR(20) NOT NULL COMMENT '城市',
 	`district`				 VARCHAR(20) NOT NULL COMMENT '区',
