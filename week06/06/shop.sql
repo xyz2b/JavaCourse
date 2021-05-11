@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `t_customer` (
 	PRIMARY KEY (`f_customer_id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '用户表';
 
-CREATE TABLE IF NOT EXISTS `t_address` (
+CREATE TABLE IF NOT EXISTS `t_customer_address` (
 	`f_customer_addr_id`      INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT '地址表自增主键ID',
 	`f_customer_id`			      INT UNSIGNED NOT NULL COMMENT 'customer表的自增ID',
   `f_zip`					          SMALLINT NOT NULL COMMENT '邮编',
